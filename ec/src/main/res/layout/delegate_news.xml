@@ -5,11 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="我是新闻页面" />
-
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,13 +15,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            android:layout_marginEnd="8dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/content_add_tab"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView"></android.support.design.widget.TabLayout>
+            app:layout_constraintTop_toTopOf="parent"></android.support.design.widget.TabLayout>
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/content_add_tab"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@mipmap/shadow_add_titlebar_new"
