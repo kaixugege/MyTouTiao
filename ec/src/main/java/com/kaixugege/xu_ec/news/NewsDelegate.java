@@ -48,15 +48,25 @@ public class NewsDelegate extends BaseDelegate {
 
         tab.setTabMode(MODE_SCROLLABLE);
         tab.setupWithViewPager(viewPager);
+
+
         tab.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
+        tab.setMinimumWidth(15);
         tab.setTabTextColors(getResources().getColor(R.color.design_default_color_primary),getResources().getColor(R.color.red));
         int i = 0;
         for (Channel channel : Helper.initChannelData()) {
-            TabLayout.Tab t = tab.newTab().setText(channel.getTitle()).setCustomView(R.layout.tab_news);
-            tab.addTab(t, i);
-            View view = tab.getTabAt(i).getCustomView();
-            TextView textView = view.findViewById(R.id.tab_news_txt);
-            textView.setText(channel.getTitle()+" !!");
+            tab.getTabAt(i).setText("是"+i);
+            View view1 = tab.getChildAt(i);
+            view1.setBackgroundDrawable(new ProxyDrawable(view1));
+
+//            TabLayout.Tab t = tab.newTab().setText(channel.getTitle()).setCustomView(R.layout.tab_news);
+//            TextView v =(TextView) t.getCustomView().findViewById(R.id.tab_news_txt);
+//            v.setText(i);
+
+//            tab.addTab(t, i);
+//            View view = tab.getTabAt(i).getCustomView();
+//            TextView textView = view.findViewById(R.id.tab_news_txt);
+//            textView.setText(channel.getTitle()+" !!");
             i++;
         }
         tab.setTabIndicatorFullWidth(false);

@@ -42,11 +42,11 @@ class VpAdapter extends FragmentStatePagerAdapter {
         return mFragments.get(i);
     }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return ((Channel) (mChannels.get(position))).getTitle();
-    }
+//    @Nullable
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        return ((Channel) (mChannels.get(position))).getTitle();
+//    }
 
     @Override
     public int getCount() {
