@@ -22,6 +22,7 @@ import static android.support.design.widget.TabLayout.MODE_SCROLLABLE;
  * Info:
  */
 public class NewsDelegate extends BaseDelegate {
+    private String TAG = "NewsDelegate";
 
     ViewPager viewPager;
     VpAdapter vpAdapter;
@@ -56,8 +57,17 @@ public class NewsDelegate extends BaseDelegate {
         int i = 0;
         for (Channel channel : Helper.initChannelData()) {
             tab.getTabAt(i).setText("是"+i);
-            View view1 = tab.getChildAt(i);
-            view1.setBackgroundDrawable(new ProxyDrawable(view1));
+            tab.getTabAt(i).setCustomView(R.layout.tab_news);
+//            View view1 = tab.getTabAt(i).getCustomView();
+//            if (view1!= null){
+////                view1.setBackground(new ProxyDrawable(view1));
+//                TextView textView = view1.findViewById(R.id.tab_news_txt);
+//                textView.setTextColor(getContext().getResources().getColor(R.color.red));
+//                textView.setText(" i"+i);
+//            }else{
+//                Log.d(TAG,"view1 为空");
+//            }
+
 
 //            TabLayout.Tab t = tab.newTab().setText(channel.getTitle()).setCustomView(R.layout.tab_news);
 //            TextView v =(TextView) t.getCustomView().findViewById(R.id.tab_news_txt);
