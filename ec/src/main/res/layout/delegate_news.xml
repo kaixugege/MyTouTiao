@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tl="http://schemas.android.com/tools"
     android:orientation="vertical">
 
 
@@ -10,17 +11,26 @@
         android:layout_width="match_parent"
         android:layout_height="35dp">
 
-        <android.support.design.widget.TabLayout
+        <com.kaixugege.xu.tablayout.tablayout.SlidingTabLayout
             android:id="@+id/tabContent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#6D8FB0"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            tl:tl_iconVisible="false"
+            tl:tl_indicator_margin_left="5dp"
+            tl:tl_indicator_margin_right="5dp"
+            tl:tl_indicator_style="BLOCK"
+            tl:tl_textsize="14sp"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/content_add_tab"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></android.support.design.widget.TabLayout>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/content_add_tab"
