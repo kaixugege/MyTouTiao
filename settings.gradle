@@ -1,1 +1,1 @@
-include ':app', ':core', ':ec'
+include ':app', ':core', ':ec', ':xu_tablayout'

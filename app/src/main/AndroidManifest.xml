@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.kaixugege.mytoutiao">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.kaixugege.mytoutiao">
 
+    <uses-sdk
+        android:minSdkVersion="16" android:targetSdkVersion="28" tools:overrideLibrary="com.xugege.xu_lib_tablayout"
+        />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
