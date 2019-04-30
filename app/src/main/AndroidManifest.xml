@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.kaixugege.mytoutiao">
 
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="28"
-        tools:overrideLibrary="com.xugege.xu_lib_tablayout" />
+    <!--<uses-sdk-->
+        <!--android:minSdkVersion="16" android:targetSdkVersion="28" tools:overrideLibrary="com.xugege.xu_lib_tablayout"-->
+        <!--/>-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,12 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ContentActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ContentActivity" android:theme="@style/FullScreenView">
+        </activity>
+        <activity android:name=".MainActivity" android:theme="@style/FullScreenView">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>

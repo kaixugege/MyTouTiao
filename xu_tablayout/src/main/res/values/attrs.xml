@@ -77,7 +77,7 @@
     <!-- 设置字体全大写 -->
     <attr name="tl_textAllCaps" format="boolean"/>
 
-    <declare-styleable name="SlidingTabLayout">
+    <declare-styleable name="SlidingTabLayoutsss">
         <!-- indicator -->
         <attr name="tl_indicator_color"/>
         <attr name="tl_indicator_height"/>

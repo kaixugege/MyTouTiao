@@ -11,22 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="35dp">
 
-        <com.kaixugege.xu.tablayout.tablayout.SlidingTabLayout
-            android:id="@+id/tabContent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-
+        <com.xugege.xu_lib_tablayout.tablayout.SlidingTabLayout
+            android:id="@+id/content_tablayout"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="#6D8FB0"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            tl:tl_iconVisible="false"
-            tl:tl_indicator_margin_left="5dp"
-            tl:tl_indicator_margin_right="5dp"
-            tl:tl_indicator_style="BLOCK"
-            tl:tl_textsize="14sp"
+            android:background="#E45171"
 
+            tl:indicatorHeight="3dp"
+            tl:indicatorSpacing="6dp"
+            tl:indicatorWidth="8dp"
+            tl:tabPadding="8dp"
+            tl:textNormalColor="@color/gray"
+            tl:textNormalSize="14sp"
+            tl:textSelectColor="@color/black"
+            tl:underLineHeight="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/content_add_tab"
             app:layout_constraintStart_toStartOf="parent"

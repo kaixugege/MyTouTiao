@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 
 import com.kaixugege.xu_ec.news.item.ChannelDelegate;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,11 @@ import java.util.List;
  * Info:
  */
 public class Helper {
-    public static List<String> data = new ArrayList<>();
+    public static String[] getData() {
+        return data.toArray(new String[data.size()]);
+    }
+
+    private static List<String> data = new ArrayList<>();
 
     static {
         data.add("关注");
@@ -46,8 +49,8 @@ public class Helper {
     }
 
 
-    public static List<Fragment> initFragmentData() {
-        List<Fragment> mFragmentChannels = new ArrayList<>();
+    public static ArrayList<Fragment> initFragmentData() {
+        ArrayList<Fragment> mFragmentChannels = new ArrayList<>();
         for (int i = 0; i < initChannelData().size(); i++) {
             mFragmentChannels.add(new ChannelDelegate(initChannelData().get(i).getChanglCode()));
         }

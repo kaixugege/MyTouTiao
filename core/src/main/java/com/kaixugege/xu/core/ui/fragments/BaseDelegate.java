@@ -1,6 +1,5 @@
 package com.kaixugege.xu.core.ui.fragments;
 
-import android.support.v4.app.Fragment;
 
 /**
  * @Author: KaixuGege
