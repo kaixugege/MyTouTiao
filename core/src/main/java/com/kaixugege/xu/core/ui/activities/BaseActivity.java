@@ -15,7 +15,7 @@ import android.widget.Toast;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected abstract void test();
+    public abstract void test();
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {

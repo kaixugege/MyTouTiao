@@ -9,15 +9,17 @@ import com.xugege.xu_lib_tablayout.Test
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), View.OnClickListener {
+
+    override fun setLayout(): Int = R.layout.activity_main
+
     override fun onBind() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         val test: Test = Test()
         test.add(1, 1)
         Toast.makeText(this, test.add(1, 1).toString(), Toast.LENGTH_LONG).show()
         bt_to_main.setOnClickListener(this)
     }
 
-    override fun setLayout() = R.layout.activity_main
+//    override fun setLayout() = R.layout.activity_main
 
     override fun test() {
     }
