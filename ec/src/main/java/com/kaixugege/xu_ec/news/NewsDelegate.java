@@ -1,5 +1,6 @@
 package com.kaixugege.xu_ec.news;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,15 @@ public class NewsDelegate extends BaseDelegate {
     VpAdapter vpAdapter;
     SlidingTabLayout tab;
     ImageView imgAddTab;
+
+    public static NewsDelegate newInstance(String s) {
+        
+        Bundle args = new Bundle();
+        
+        NewsDelegate fragment = new NewsDelegate();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public Object setLayout() {
