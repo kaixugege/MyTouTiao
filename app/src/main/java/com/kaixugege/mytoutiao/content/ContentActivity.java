@@ -45,13 +45,12 @@ public class ContentActivity extends AppCompatActivity {
 
         try {
             mContext = this;
-            viewPager = findViewById(R.id.content_lls);
-            bottomTab = findViewById(R.id.bottom_tabss);
+
             if (bottomTab == null)
                 Log.d("==========", "为空啊");
-
             else
                 Log.d("==========", "不  为空啊");
+
             for (String title : mTitles) {
                 mFragments.add(NewsDelegate.newInstance("Switch ViewPager " + title));
             }
@@ -60,10 +59,23 @@ public class ContentActivity extends AppCompatActivity {
                 mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
             }
 
+
+            viewPager = ViewFindUtils.find(getWindow().getDecorView(),R.id.content_lls);
+            MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
+            viewPager.setAdapter(adapter);
+
+            bottomTab = ViewFindUtils.find(getWindow().getDecorView(),R.id.bottom_tabss);
+
+
             Log.d("==========", "开始设置");
             //两位数
+            tl_2();
+            if (bottomTab == null)
+                Log.d("==========", " 开始判断  为空啊");
+            else
+                Log.d("==========", " 开始判断  不  为空啊");
             bottomTab.showMsg(0, 55);
-
+            Log.d("==========", "开始设置外边距");
             bottomTab.setMsgMargin(0, -5, 5);
 
             //三位数
@@ -85,9 +97,6 @@ public class ContentActivity extends AppCompatActivity {
                 rtv_2_3.setBackgroundColor(Color.parseColor("#6D8FB0"));
             }
 
-            MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
-
-            viewPager.setAdapter(adapter);
         } catch (Exception ex) {
             Log.d(" =========== ", ex.getMessage());
         }

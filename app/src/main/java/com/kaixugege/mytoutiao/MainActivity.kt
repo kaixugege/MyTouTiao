@@ -24,7 +24,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         val test: Test = Test()
         test.add(1, 1)
         Toast.makeText(this, test.add(1, 1).toString(), Toast.LENGTH_LONG).show()
-        bt_to_main.setOnClickListener(this)
         setAnimation()
     }
 
@@ -56,7 +55,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         })
     }
 
-//    override fun setLayout() = R.layout.activity_main
 
     override fun test() {
     }
@@ -72,9 +70,5 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-////        setContentView(R.layout.activity_main)
-//    }
 
 }

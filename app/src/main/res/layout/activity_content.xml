@@ -7,17 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".content.ContentActivity">
 
+
+
     <android.support.v4.view.ViewPager
         android:id="@+id/content_lls"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_tabss"
         app:layout_constraintEnd_toEndOf="@id/bottom_tabss"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
 
     </android.support.v4.view.ViewPager>
 

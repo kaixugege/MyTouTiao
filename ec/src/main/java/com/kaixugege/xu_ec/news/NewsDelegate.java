@@ -59,6 +59,8 @@ public class NewsDelegate extends BaseDelegate {
         tab.setViewPager(viewPager,Helper.getData(),getActivity(),Helper.initFragmentData());
         tab.setTabPadding(12);
         tab.setTabSpaceEqual(true);
+        tab.setTextSelectColor(getActivity().getResources().getColor(R.color.black));
+        tab.setTextUnselectColor(getActivity().getResources().getColor(R.color.textbg));
 
 
         return null;
