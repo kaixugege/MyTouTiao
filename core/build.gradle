@@ -35,4 +35,6 @@ dependencies {
 
 
     api 'com.github.kaixugege:XuTablayout:2.0.3'
+
+    api 'com.github.kaixugege:XuFragment:1.0.1'
 }

@@ -27,12 +27,12 @@ public class ContentActivity extends AppCompatActivity {
     private CommonTabLayout bottomTab = null;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "消息", "联系人", "更多"};
-    private Integer[] mIconUnselectIds = {
-            new Integer(R.mipmap.tab_home_unselect), new Integer(R.mipmap.tab_speech_unselect),
-            new Integer(R.mipmap.tab_contact_unselect), new Integer(R.mipmap.tab_more_unselect)};
-    private Integer[] mIconSelectIds = {
-            new Integer(R.mipmap.tab_home_select), new Integer(R.mipmap.tab_speech_select),
-            new Integer(R.mipmap.tab_contact_select), new Integer(R.mipmap.tab_more_select)};
+    private int[] mIconUnselectIds = {
+            new Integer(R.drawable.tab_home_unselect), new Integer(R.drawable.tab_speech_unselect),
+            new Integer(R.drawable.tab_contact_unselect), new Integer(R.drawable.tab_more_unselect)};
+    private int[] mIconSelectIds = {
+            new Integer(R.drawable.tab_home_select), new Integer(R.drawable.tab_speech_select),
+            new Integer(R.drawable.tab_contact_select), new Integer(R.drawable.tab_more_select)};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private ViewPager viewPager;
@@ -43,7 +43,7 @@ public class ContentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_content);
 
 
-        try {
+//        try {
             mContext = this;
 
             if (bottomTab == null)
@@ -65,7 +65,8 @@ public class ContentActivity extends AppCompatActivity {
             viewPager.setAdapter(adapter);
 
             bottomTab = ViewFindUtils.find(getWindow().getDecorView(),R.id.bottom_tabss);
-
+            bottomTab.setTabData(mTabEntities);
+            bottomTab.setLeft(8);
 
             Log.d("==========", "开始设置");
             //两位数
@@ -97,9 +98,9 @@ public class ContentActivity extends AppCompatActivity {
                 rtv_2_3.setBackgroundColor(Color.parseColor("#6D8FB0"));
             }
 
-        } catch (Exception ex) {
-            Log.d(" =========== ", ex.getMessage());
-        }
+//        } catch (Exception ex) {
+//            Log.d(" =========== ", ex.getMessage());
+//        }
 
 
     }

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
 import com.kaixugege.xu_ec.R;
+import com.xu.gege.fragment.frg.ILazyLoda;
 import com.xugege.xu_lib_tablayout.tablayout.SlidingTabLayout;
 
 /**
@@ -29,42 +30,56 @@ public class NewsDelegate extends BaseDelegate {
     ImageView imgAddTab;
 
     public static NewsDelegate newInstance(String s) {
-        
+
         Bundle args = new Bundle();
-        
+
         NewsDelegate fragment = new NewsDelegate();
         fragment.setArguments(args);
         return fragment;
     }
 
+
     @Override
-    public Object setLayout() {
-        Log.d("NewsDelegate", "开始setlayout");
+    public Object getLayout() {
+        Log.d("NewsDelegate", "开始getlayout");
         return R.layout.delegate_news;
     }
 
     @Override
-    public Object onBindView(View rootView) {
+    public void onBindView(View rootView) {
         Log.d("NewsDelegate", "onBindView");
 
-        viewPager = ViewFindUtils.find(rootView,R.id.news_vp);
-        tab = ViewFindUtils.find(rootView,R.id.content_tablayout);
+        viewPager = ViewFindUtils.find(rootView, R.id.news_vp);
+        tab = ViewFindUtils.find(rootView, R.id.content_tablayout);
 //        mAddTab = rootView.findViewById(R.id.content_add_tab);
-        imgAddTab = ViewFindUtils.find(rootView,R.id.content_add_tab);
+        imgAddTab = ViewFindUtils.find(rootView, R.id.content_add_tab);
         vpAdapter = new VpAdapter(getFragmentManager(), Helper.initChannelData(), Helper.initFragmentData());
         viewPager.setAdapter(vpAdapter);
 //        viewPager.setOffscreenPageLimit(Helper.initFragmentData().size());
 
 
-        tab.setViewPager(viewPager,Helper.getData(),getActivity(),Helper.initFragmentData());
+        tab.setViewPager(viewPager, Helper.getData(), getActivity(), Helper.initFragmentData());
         tab.setTabPadding(12);
         tab.setTabSpaceEqual(true);
         tab.setTextSelectColor(getActivity().getResources().getColor(R.color.black));
         tab.setTextUnselectColor(getActivity().getResources().getColor(R.color.textbg));
 
 
-        return null;
     }
 
 
+    @Override
+    public ILazyLoda setILoader() {
+        return new ILazyLoda() {
+            @Override
+            public void onFragmentFirstVisible() {
+
+            }
+
+            @Override
+            public void onFragmentVisibleChange(boolean isVisible) {
+
+            }
+        };
+    }
 }

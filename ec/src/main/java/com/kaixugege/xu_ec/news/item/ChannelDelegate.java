@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
 import com.kaixugege.xu_ec.R;
+import com.xu.gege.fragment.frg.ILazyLoda;
 
 /**
  * @Author: KaixuGege
@@ -26,15 +27,30 @@ public class ChannelDelegate extends BaseDelegate {
     }
 
 
+
     @Override
-    public Object setLayout() {
+    public Object getLayout() {
         return R.layout.delegate_channel;
     }
 
     @Override
-    public Object onBindView(View rootView) {
+    public void onBindView(View rootView) {
         mCc = rootView.findViewById(R.id.channel_tx_cc);
         mCc.setText(ccTxt);
-        return null;
+    }
+
+    @Override
+    public ILazyLoda setILoader() {
+        return new ILazyLoda() {
+            @Override
+            public void onFragmentFirstVisible() {
+
+            }
+
+            @Override
+            public void onFragmentVisibleChange(boolean isVisible) {
+
+            }
+        };
     }
 }
