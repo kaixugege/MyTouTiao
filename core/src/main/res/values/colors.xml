@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="red">#FF0000</color>
+    <color name="mine_navigation_bar_bgs">#FAFAFA</color>
+    <color name="black">#000000</color>
+
+    <color name="mine_fragment_backgroune">#EEEEEE</color>
 </resources>

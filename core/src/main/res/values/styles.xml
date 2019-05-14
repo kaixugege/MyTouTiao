@@ -1,0 +1,43 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <!-- 设置打开关闭动画-->
+    <style name="OpenCloseAnimation" >
+        <!--<item name="android:activityOpenEnterAnimation">@anim/actitivy_open</item>-->
+        <!--<item name="android:activityOpenExitAnimation">@anim/activity_close</item>-->
+        <!--<item name="android:activityCloseEnterAnimation">@anim/activity_close</item>-->
+        <!--<item name="android:activityCloseExitAnimation">@anim/actitivy_open</item>-->
+
+        <item name="android:windowExitTransition" tools:ignore="NewApi">@anim/activity_close</item>
+        <item name="android:windowEnterAnimation">@anim/actitivy_open</item>
+        <item name="android:windowReenterTransition" tools:ignore="NewApi">@anim/actitivy_open</item>
+
+
+    </style>
+
+
+
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+
+
+
+    <style name="MyPopupWindow">
+        <item name="android:windowEnterAnimation">@anim/pop_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_out</item>
+    </style>
+
+
+
+    <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat.Dark">
+        <!--<item name="android:colorBackground">#000000</item>-->
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item> <!--新增一个item，用于控制menu-->
+    </style>
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--把该属性改为false即可使menu位置位于toolbar之下-->
+    </style>
+</resources>
