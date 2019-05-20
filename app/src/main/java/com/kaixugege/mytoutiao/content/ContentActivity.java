@@ -1,17 +1,19 @@
 package com.kaixugege.mytoutiao.content;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.kaixugege.mytoutiao.R;
+import com.kaixugege.xu.core.app.XuTouTiao;
+import com.kaixugege.xu.core.ui.activities.BaseActivity;
+import com.kaixugege.xu_ec.login.LoginActivity;
 import com.kaixugege.xu_ec.message.MessageDelegate;
 import com.kaixugege.xu_ec.mine.MineFragment;
 import com.kaixugege.xu_ec.news.NewsDelegate;
@@ -26,7 +28,7 @@ import com.xugege.xu_lib_tablayout.tablayout.widget.MsgView;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ContentActivity extends AppCompatActivity implements MineFragment.OnFragmentInteractionListener {
+public class ContentActivity extends BaseActivity implements MineFragment.OnFragmentInteractionListener {
     private Context mContext;
     private CommonTabLayout bottomTab = null;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -42,10 +44,18 @@ public class ContentActivity extends AppCompatActivity implements MineFragment.O
     private ViewPager viewPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content);
+    public void test() {
 
+    }
+
+    @Override
+    public Object setLayout() {
+
+        return R.layout.activity_content;
+    }
+
+    @Override
+    public void onBind() {
 
 //        try {
         mContext = this;
@@ -64,13 +74,14 @@ public class ContentActivity extends AppCompatActivity implements MineFragment.O
                 mFragments.add(MineFragment.newInstance("3", "更多"));
             } else if (title.equals("首页")) {
                 mFragments.add(NewsDelegate.newInstance("Switch ViewPager " + title));
-            }else {
+            } else {
                 mFragments.add(NewsDelegate.newInstance("Switch ViewPager " + title));
             }
         }
 
         for (int i = 0; i < mTitles.length; i++) {
-            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
+            TabEntity tabEntity = new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]);
+            mTabEntities.add(tabEntity);
         }
 
 
@@ -116,7 +127,6 @@ public class ContentActivity extends AppCompatActivity implements MineFragment.O
 //            Log.d(" =========== ", ex.getMessage());
 //        }
 
-
     }
 
     @Override
@@ -131,13 +141,20 @@ public class ContentActivity extends AppCompatActivity implements MineFragment.O
         bottomTab.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
+                if (position == 3)
+                    if (!XuTouTiao.getConfigurator().getLoginReady()) {
+                        ContentActivity.this.startActivity(new Intent(mContext, LoginActivity.class));
+                        return;
+                    }
                 viewPager.setCurrentItem(position);
             }
 
             @Override
             public void onTabReselect(int position) {
+                Log.d(TAG, "onTabReselect " + position);
                 if (position == 0) {
                     bottomTab.showMsg(0, mRandom.nextInt(100) + 1);
+                    Log.d(TAG, "onTabReselect ");
 //                    UnreadMsgUtils.show(mTabLayout_2.getMsgView(0), mRandom.nextInt(100) + 1);
                 }
             }
@@ -160,14 +177,13 @@ public class ContentActivity extends AppCompatActivity implements MineFragment.O
             }
         });
 
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(0);
     }
 
     protected int dp2px(float dp) {
         final float scale = mContext.getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
     }
-
 
 
     @Override

@@ -1,2 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.kaixugege.xu_ec"/>
+    package="com.kaixugege.xu_ec">
+
+    <application>
+        <activity android:name=".login.LoginActivity"></activity>
+        <activity
+            android:name="login.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme" />
+    </application>
+
+</manifest>
