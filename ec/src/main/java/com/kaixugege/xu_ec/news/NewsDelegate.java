@@ -27,7 +27,8 @@ public class NewsDelegate extends BaseDelegate {
     ViewPager viewPager;
     VpAdapter vpAdapter;
     SlidingTabLayout tab;
-    ImageView imgAddTab;
+    ImageView search;
+    ImageView add;
 
     public static NewsDelegate newInstance(String s) {
 
@@ -51,11 +52,11 @@ public class NewsDelegate extends BaseDelegate {
 
         viewPager = ViewFindUtils.find(rootView, R.id.news_vp);
         tab = ViewFindUtils.find(rootView, R.id.content_tablayout);
-//        mAddTab = rootView.findViewById(R.id.content_add_tab);
-        imgAddTab = ViewFindUtils.find(rootView, R.id.content_add_tab);
+        search = ViewFindUtils.find(rootView, R.id.iv_search);
+        add = ViewFindUtils.find(rootView, R.id.iv_add);
+
         vpAdapter = new VpAdapter(getFragmentManager(), Helper.initChannelData(), Helper.initFragmentData());
         viewPager.setAdapter(vpAdapter);
-//        viewPager.setOffscreenPageLimit(Helper.initFragmentData().size());
 
 
         tab.setViewPager(viewPager, Helper.getData(), getActivity(), Helper.initFragmentData());

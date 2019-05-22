@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.kaixugege.mytoutiao.R;
 import com.kaixugege.xu.core.app.XuTouTiao;
@@ -42,6 +45,8 @@ public class ContentActivity extends BaseActivity implements MineFragment.OnFrag
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private ViewPager viewPager;
+
+    String TAG = this.getClass().getSimpleName();
 
     @Override
     public void test() {
@@ -138,20 +143,32 @@ public class ContentActivity extends BaseActivity implements MineFragment.OnFrag
 
     private void tl_2() {
         bottomTab.setTabData(mTabEntities);
+        bottomTab.setTabTouch(new CommonTabLayout.TabTouch() {
+            @Override
+            public boolean touch(View v, MotionEvent event, int position, int allTabCount) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //判断是不是点到了最后一个了
+                    if (position == allTabCount-1)
+                        if (!XuTouTiao.getConfigurator().getLoginReady()) {
+                            ContentActivity.this.startActivity(new Intent(mContext, LoginActivity.class));
+                            return true;
+                        }
+                }
+                return false;
+            }
+        });
+
+
         bottomTab.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                if (position == 3)
-                    if (!XuTouTiao.getConfigurator().getLoginReady()) {
-                        ContentActivity.this.startActivity(new Intent(mContext, LoginActivity.class));
-                        return;
-                    }
+
                 viewPager.setCurrentItem(position);
             }
 
             @Override
             public void onTabReselect(int position) {
-                Log.d(TAG, "onTabReselect " + position);
+                Log.d(TAG, "           onTabReselect " + position);
                 if (position == 0) {
                     bottomTab.showMsg(0, mRandom.nextInt(100) + 1);
                     Log.d(TAG, "onTabReselect ");
@@ -159,7 +176,6 @@ public class ContentActivity extends BaseActivity implements MineFragment.OnFrag
                 }
             }
         });
-
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
