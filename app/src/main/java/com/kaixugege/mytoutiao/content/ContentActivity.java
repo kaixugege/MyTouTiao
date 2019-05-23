@@ -227,4 +227,5 @@ public class ContentActivity extends BaseActivity implements MineFragment.OnFrag
             return mFragments.get(position);
         }
     }
+
 }
