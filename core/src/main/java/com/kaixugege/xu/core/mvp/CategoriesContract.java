@@ -1,4 +1,4 @@
-package com.kaixugege.xu.core.presenter;
+package com.kaixugege.xu.core.mvp;
 
 
 import io.reactivex.disposables.Disposable;

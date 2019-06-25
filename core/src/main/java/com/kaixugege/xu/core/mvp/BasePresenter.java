@@ -1,4 +1,4 @@
-package com.kaixugege.xu.core.presenter;
+package com.kaixugege.xu.core.mvp;
 
 /**
  * @Author: KaixuGege
