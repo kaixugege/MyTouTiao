@@ -64,8 +64,6 @@ public class NewsDelegate extends BaseDelegate {
         tab.setTabSpaceEqual(true);
         tab.setTextSelectColor(getActivity().getResources().getColor(R.color.black));
         tab.setTextUnselectColor(getActivity().getResources().getColor(R.color.textbg));
-
-
     }
 
 
@@ -74,12 +72,10 @@ public class NewsDelegate extends BaseDelegate {
         return new ILazyLoda() {
             @Override
             public void onFragmentFirstVisible() {
-
             }
 
             @Override
             public void onFragmentVisibleChange(boolean isVisible) {
-
             }
         };
     }
