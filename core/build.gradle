@@ -37,7 +37,7 @@ dependencies {
 
     api 'com.github.kaixugege:XuTablayout:2.0.4'
 
-    api 'com.github.kaixugege:XuFragment:1.0.1'
+//    api 'com.github.kaixugege:XuFragment:1.0.1'
 
     //rxjava
     api 'io.reactivex.rxjava2:rxandroid:2.1.1'

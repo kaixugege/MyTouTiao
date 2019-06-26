@@ -7,13 +7,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.kaixugege.xu.core.lazyload.ILazyLoda;
 import com.kaixugege.xu.core.mvp.CategoriesContract;
 import com.kaixugege.xu.core.rxbus.RxBus;
 import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
 import com.kaixugege.xu_ec.R;
 import com.kaixugege.xu_ec.news.event.ChangeTabEvent;
 import com.kaixugege.xu_ec.news.event.RefreshEvent;
-import com.xu.gege.fragment.frg.ILazyLoda;
 import com.xugege.xu_lib_tablayout.tablayout.SlidingTabLayout;
 
 import io.reactivex.Observer;
@@ -32,7 +32,7 @@ import io.reactivex.schedulers.Schedulers;
 public class NewsDelegate extends BaseDelegate {
     private CategoriesContract.CategoriesPresenter presenter;
 
-    private String TAG = "NewsDelegate";
+    private final String TAG = this.getClass().getSimpleName();
     private final String[] mTitles = {
             "热门", "iOS", "Android"
             , "前端", "后端", "设计", "工具资源"
@@ -44,14 +44,11 @@ public class NewsDelegate extends BaseDelegate {
     ImageView add;
 
     public static NewsDelegate newInstance(String s) {
-
         Bundle args = new Bundle();
-
         NewsDelegate fragment = new NewsDelegate();
         fragment.setArguments(args);
         return fragment;
     }
-
 
     @Override
     public Object getLayout() {
@@ -62,7 +59,33 @@ public class NewsDelegate extends BaseDelegate {
     @Override
     public void onBindView(View rootView) {
         Log.d("NewsDelegate", "onBindView");
+    }
 
+
+    @Override
+    public ILazyLoda setILoader() {
+        return new ILazyLoda() {
+
+            @Override
+            public void onFragmentFirstVisible(View rootView) {
+                Log.d(this.getClass().getSimpleName(), "懒加载，第一次显示页面");
+                Toast.makeText(getActivity(), "fragment第一次显示出来", Toast.LENGTH_LONG).show();
+                initPresenter();
+                initEvent();
+
+                initView(rootView);
+            }
+
+            @Override
+            public void onFragmentVisibleChange(boolean isVisible) {
+                Log.d(this.getClass().getSimpleName(), "懒加载，第一次显示页面");
+                Toast.makeText(getActivity(), " fragment change " + isVisible, Toast.LENGTH_SHORT).show();
+
+            }
+        };
+    }
+
+    private void initView(View rootView) {
         viewPager = ViewFindUtils.find(rootView, R.id.news_vp);
         tab = ViewFindUtils.find(rootView, R.id.content_tablayout);
         search = ViewFindUtils.find(rootView, R.id.iv_search);
@@ -79,59 +102,30 @@ public class NewsDelegate extends BaseDelegate {
         tab.setTextUnselectColor(getActivity().getResources().getColor(R.color.textbg));
     }
 
-
-    @Override
-    public ILazyLoda setILoader() {
-        return new ILazyLoda() {
-            @Override
-            public void onFragmentFirstVisible() {
-                Toast.makeText(getActivity(), "fragment第一次显示出来", Toast.LENGTH_SHORT).show();
-                initPresenter();
-                initEvent();
-            }
-
-            @Override
-            public void onFragmentVisibleChange(boolean isVisible) {
-                Toast.makeText(getActivity(), " fragment change " + isVisible, Toast.LENGTH_SHORT).show();
-
-            }
-        };
-    }
-
     private void initEvent() {
+        Log.d(this.getClass().getSimpleName(), " initEvent()");
+
         RxBus.getInstance().toObservable(RefreshEvent.class).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<RefreshEvent>() {
+                .subscribe(new Consumer<RefreshEvent>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
+                    public void accept(RefreshEvent refreshEvent) throws Exception {
+                        Log.d(TAG, "RefreshEvent  ");
                     }
 
-                    @Override
-                    public void onNext(RefreshEvent refreshEvent) {
-                        Toast.makeText(getActivity(), "refresh", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
                 });
+
 
         RxBus.getInstance().toObservable(ChangeTabEvent.class).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ChangeTabEvent>() {
                     @Override
                     public void accept(ChangeTabEvent changeTabEvent) throws Exception {
-
+                        Log.d(TAG, "ChangeTabEvent  ");
                     }
                 });
     }
 
     private void initPresenter() {
+        Log.d(this.getClass().getSimpleName(), " initPresenter()");
 //        CategoriesContract.CategoriesPresenter c =new CategoriesContract.CategoriesPresenter(this);
     }
 }

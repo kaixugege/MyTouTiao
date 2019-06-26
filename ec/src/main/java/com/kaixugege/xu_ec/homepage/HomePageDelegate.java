@@ -2,8 +2,9 @@ package com.kaixugege.xu_ec.homepage;
 
 import android.view.View;
 
-import com.xu.gege.fragment.frg.ILazyLoda;
-import com.xu.gege.fragment.frg.XuLazyFragment;
+import com.kaixugege.xu.core.lazyload.ILazyLoda;
+import com.kaixugege.xu.core.lazyload.XuLazyFragment;
+
 
 /**
  * @Author: KaixuGege

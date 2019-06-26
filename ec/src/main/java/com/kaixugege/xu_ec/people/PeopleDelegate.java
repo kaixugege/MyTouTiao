@@ -3,9 +3,9 @@ package com.kaixugege.xu_ec.people;
 import android.os.Bundle;
 import android.view.View;
 
+import com.kaixugege.xu.core.lazyload.ILazyLoda;
+import com.kaixugege.xu.core.lazyload.XuLazyFragment;
 import com.kaixugege.xu_ec.R;
-import com.xu.gege.fragment.frg.ILazyLoda;
-import com.xu.gege.fragment.frg.XuLazyFragment;
 
 /**
  * @Author: KaixuGege
@@ -27,8 +27,10 @@ public class PeopleDelegate extends XuLazyFragment {
     @Override
     public ILazyLoda setILoader() {
         return new ILazyLoda() {
+
+
             @Override
-            public void onFragmentFirstVisible() {
+            public void onFragmentFirstVisible(View rootView) {
 
             }
 

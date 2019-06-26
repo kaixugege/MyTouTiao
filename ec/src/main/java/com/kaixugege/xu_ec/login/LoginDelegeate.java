@@ -9,11 +9,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.kaixugege.xu.core.app.XuTouTiao;
+import com.kaixugege.xu.core.lazyload.XuBaseFragment;
 import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
 import com.kaixugege.xu_ec.R;
-import com.xu.gege.fragment.frg.BaseFragment;
-import com.xu.gege.fragment.frg.ILazyLoda;
-import com.xu.gege.fragment.frg.XuBaseFragment;
+
 
 import java.io.FileInputStream;
 

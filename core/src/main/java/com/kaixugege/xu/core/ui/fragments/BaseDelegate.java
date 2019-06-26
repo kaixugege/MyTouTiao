@@ -1,7 +1,7 @@
 package com.kaixugege.xu.core.ui.fragments;
 
 
-import com.xu.gege.fragment.frg.XuLazyFragment;
+import com.kaixugege.xu.core.lazyload.XuLazyFragment;
 
 /**
  * @Author: KaixuGege

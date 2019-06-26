@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.kaixugege.xu.core.lazyload.ILazyLoda;
 import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
 import com.kaixugege.xu_ec.R;
-import com.xu.gege.fragment.frg.ILazyLoda;
 
 /**
  * @Author: KaixuGege
@@ -42,8 +42,10 @@ public class ChannelDelegate extends BaseDelegate {
     @Override
     public ILazyLoda setILoader() {
         return new ILazyLoda() {
+
+
             @Override
-            public void onFragmentFirstVisible() {
+            public void onFragmentFirstVisible(View rootView) {
 
             }
 
