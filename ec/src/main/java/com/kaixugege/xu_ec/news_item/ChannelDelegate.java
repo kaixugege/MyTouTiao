@@ -2,6 +2,7 @@ package com.kaixugege.xu_ec.news_item;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -38,6 +39,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
     private SmartRefreshLayout refreshLayout;
     private RecyclerView recylerview;
     private CategoriesContract.CategoriesPresenter presenter;
+    public MyMultAdapter adapter;
 
     public ChannelDelegate(String cc) {
         this.ccTxt = cc;
@@ -53,6 +55,10 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
     @Override
     public void onBindView(View rootView) {
+
+    }
+
+    public void initView(View rootView){
         mCc = rootView.findViewById(R.id.channel_tx_cc);
         mCc.setText(ccTxt);
 //
@@ -69,8 +75,6 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
                 initData();
             }
         });
-//
-//        recylerview.setAdapter();
         recylerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -93,7 +97,8 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
         });
         ArrayList list = new ArrayList<Result.ItemList>();
         recylerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recylerview.setAdapter(new MyMultAdapter());
+        adapter = new MyMultAdapter();
+        recylerview.setAdapter(adapter);
 
 
     }
@@ -115,7 +120,9 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
             @Override
             public void onFragmentFirstVisible(View rootView) {
-
+                initView(rootView);
+                initPresent();
+                initData();
             }
 
             @Override
@@ -127,7 +134,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
     @Override
     public void onDiscoverySuccess(Result result) {
-
+         int start = adapter.getItemCount();
     }
 
     @Override
