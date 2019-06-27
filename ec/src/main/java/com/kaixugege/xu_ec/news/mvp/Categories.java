@@ -1,4 +1,4 @@
-package com.kaixugege.xu.core.mvp;
+package com.kaixugege.xu_ec.news.mvp;
 
 /**
  * @Author: KaixuGege

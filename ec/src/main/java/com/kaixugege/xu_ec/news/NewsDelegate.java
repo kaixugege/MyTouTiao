@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kaixugege.xu.core.lazyload.ILazyLoda;
-import com.kaixugege.xu.core.mvp.CategoriesContract;
+import com.kaixugege.xu_ec.news.mvp.CategoriesContract;
 import com.kaixugege.xu.core.rxbus.RxBus;
 import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
 import com.kaixugege.xu_ec.R;
@@ -16,9 +16,7 @@ import com.kaixugege.xu_ec.news.event.ChangeTabEvent;
 import com.kaixugege.xu_ec.news.event.RefreshEvent;
 import com.xugege.xu_lib_tablayout.tablayout.SlidingTabLayout;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -69,20 +67,24 @@ public class NewsDelegate extends BaseDelegate {
             @Override
             public void onFragmentFirstVisible(View rootView) {
                 Log.d(this.getClass().getSimpleName(), "懒加载，第一次显示页面");
-                Toast.makeText(getActivity(), "fragment第一次显示出来", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "News  第一次显示出来", Toast.LENGTH_LONG).show();
                 initPresenter();
                 initEvent();
-
                 initView(rootView);
+                initData();
             }
 
             @Override
             public void onFragmentVisibleChange(boolean isVisible) {
                 Log.d(this.getClass().getSimpleName(), "懒加载，第一次显示页面");
-                Toast.makeText(getActivity(), " fragment change " + isVisible, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), " News change " + isVisible, Toast.LENGTH_SHORT).show();
 
             }
         };
+    }
+
+    private void initData() {
+        presenter.categories();
     }
 
     private void initView(View rootView) {

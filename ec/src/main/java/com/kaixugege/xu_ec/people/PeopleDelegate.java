@@ -2,6 +2,7 @@ package com.kaixugege.xu_ec.people;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.kaixugege.xu.core.lazyload.ILazyLoda;
 import com.kaixugege.xu.core.lazyload.XuLazyFragment;
@@ -31,7 +32,7 @@ public class PeopleDelegate extends XuLazyFragment {
 
             @Override
             public void onFragmentFirstVisible(View rootView) {
-
+                Toast.makeText(getActivity(), "联系人  第一次显示出来", Toast.LENGTH_LONG).show();
             }
 
             @Override

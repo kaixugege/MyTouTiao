@@ -2,7 +2,7 @@ package com.kaixugege.xu_ec.news;
 
 import android.support.v4.app.Fragment;
 
-import com.kaixugege.xu_ec.news.item.ChannelDelegate;
+import com.kaixugege.xu_ec.news_item.ChannelDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
