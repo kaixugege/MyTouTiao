@@ -21,7 +21,10 @@ public interface CategoriesContract {
     }
 
     interface CategoriesView extends BaseView {
-        public Disposable onCategoriesSucc( List<Categories> result);
-        public Disposable onCategoriesFail();
+
+        void onCategoriesSucc(List<Categories> result);
+
+        void onCategoriesFail();
+
     }
 }

@@ -16,5 +16,4 @@ public class Categories {
     public String bgColor = null;
     public String headerImage = null;
     public String defaultAuthorId = null;
-
 }

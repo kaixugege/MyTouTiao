@@ -157,11 +157,9 @@ public class ContentActivity extends BaseActivity implements MineFragment.OnFrag
             }
         });
 
-
         bottomTab.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-
                 viewPager.setCurrentItem(position);
             }
 
@@ -176,6 +174,7 @@ public class ContentActivity extends BaseActivity implements MineFragment.OnFrag
             }
         });
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -190,6 +189,7 @@ public class ContentActivity extends BaseActivity implements MineFragment.OnFrag
             public void onPageScrollStateChanged(int state) {
 
             }
+
         });
 
         viewPager.setCurrentItem(0);
@@ -207,6 +207,7 @@ public class ContentActivity extends BaseActivity implements MineFragment.OnFrag
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
+
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -225,6 +226,7 @@ public class ContentActivity extends BaseActivity implements MineFragment.OnFrag
         public Fragment getItem(int position) {
             return mFragments.get(position);
         }
+
     }
 
 }

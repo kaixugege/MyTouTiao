@@ -2,7 +2,6 @@ package com.kaixugege.xu_ec.news_item;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,7 +13,7 @@ import com.kaixugege.xu_ec.news.mvp.CategoriesContract;
 import com.kaixugege.xu.core.net.entiy.Result;
 import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
 import com.kaixugege.xu_ec.R;
-import com.kaixugege.xu_ec.news.MyMultAdapter;
+import com.kaixugege.xu_ec.news_item.adapter.MyMultAdapter;
 import com.kaixugege.xu_ec.news_item.mvp.DiscoveryContract;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -58,7 +57,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
     }
 
-    public void initView(View rootView){
+    public void initView(View rootView) {
         mCc = rootView.findViewById(R.id.channel_tx_cc);
         mCc.setText(ccTxt);
 //
@@ -66,8 +65,11 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
         recylerview = rootView.findViewById(R.id.chnnel_recyclervie);
 //
         refreshLayout.setEnableAutoLoadMore(true);
-        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-        refreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
+        if (getActivity() != null) {
+            refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+            refreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
+
+        }
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
@@ -84,20 +86,25 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
                 //2表示正在滑动。用户手指已经离开屏幕 SCROLL_STATE_FLING
                 switch (newState) {
                     case 0:
-                        Glide.with(getActivity().getApplicationContext()).pauseRequests();
+                        if (getActivity() != null)
+                            Glide.with(getActivity().getApplicationContext()).pauseRequests();
                         break;
                     case 1:
-                        Glide.with(getActivity().getApplicationContext()).resumeRequests();
+                        if (getActivity() != null)
+                            Glide.with(getActivity().getApplicationContext()).resumeRequests();
                         break;
                     case 2:
-                        Glide.with(getActivity().getApplicationContext()).resumeRequests();
+                        if (getActivity() != null)
+                            Glide.with(getActivity().getApplicationContext()).resumeRequests();
+                        break;
+                    default:
                         break;
                 }
             }
         });
         ArrayList list = new ArrayList<Result.ItemList>();
         recylerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new MyMultAdapter();
+        adapter = new MyMultAdapter(new ArrayList<Result.ItemList>(), null);//先给个空的当作默认参数
         recylerview.setAdapter(adapter);
 
 
@@ -117,7 +124,6 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
     public ILazyLoda setILoader() {
         return new ILazyLoda() {
 
-
             @Override
             public void onFragmentFirstVisible(View rootView) {
                 initView(rootView);
@@ -134,7 +140,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
     @Override
     public void onDiscoverySuccess(Result result) {
-         int start = adapter.getItemCount();
+        int start = adapter.getItemCount();
     }
 
     @Override

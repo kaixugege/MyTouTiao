@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kaixugege.xu.core.lazyload.ILazyLoda;
+import com.kaixugege.xu_ec.news.mvp.Categories;
 import com.kaixugege.xu_ec.news.mvp.CategoriesContract;
 import com.kaixugege.xu.core.rxbus.RxBus;
 import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
@@ -16,7 +17,11 @@ import com.kaixugege.xu_ec.news.event.ChangeTabEvent;
 import com.kaixugege.xu_ec.news.event.RefreshEvent;
 import com.xugege.xu_lib_tablayout.tablayout.SlidingTabLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -27,10 +32,10 @@ import io.reactivex.schedulers.Schedulers;
  * ClassName:
  * Info:
  */
-public class NewsDelegate extends BaseDelegate {
+public class NewsDelegate extends BaseDelegate implements CategoriesContract.CategoriesView{
     private CategoriesContract.CategoriesPresenter presenter;
 
-    private final String TAG = this.getClass().getSimpleName();
+    private String TAG = this.getClass().getSimpleName();
     private final String[] mTitles = {
             "热门", "iOS", "Android"
             , "前端", "后端", "设计", "工具资源"
@@ -84,7 +89,8 @@ public class NewsDelegate extends BaseDelegate {
     }
 
     private void initData() {
-        presenter.categories();
+        if (presenter != null)
+            presenter.categories();
     }
 
     private void initView(View rootView) {
@@ -128,6 +134,33 @@ public class NewsDelegate extends BaseDelegate {
 
     private void initPresenter() {
         Log.d(this.getClass().getSimpleName(), " initPresenter()");
-//        CategoriesContract.CategoriesPresenter c =new CategoriesContract.CategoriesPresenter(this);
+        presenter  = new CategoriesContract.CategoriesPresenter() {
+            @Override
+            public void start() {
+
+            }
+
+            @Override
+            public Disposable categories() {
+                return null;
+            }
+        };
+    }
+
+    @Override
+    public void onCategoriesSucc(List<Categories> result) {
+        ArrayList<Categories> arrayList = (ArrayList<Categories>) result;
+
+
+
+    }
+
+    @Override
+    public void onCategoriesFail() {
+    }
+
+    @Override
+    public void setPresenter(Object presenter) {
+        this.presenter = (CategoriesContract.CategoriesPresenter) presenter;
     }
 }
