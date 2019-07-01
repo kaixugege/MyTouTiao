@@ -117,7 +117,8 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
 
     private void initData() {
-        paresent.discovery();
+        if (paresent != null)
+            paresent.discovery();
     }
 
     @Override

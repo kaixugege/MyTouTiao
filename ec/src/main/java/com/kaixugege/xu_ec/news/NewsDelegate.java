@@ -32,7 +32,7 @@ import io.reactivex.schedulers.Schedulers;
  * ClassName:
  * Info:
  */
-public class NewsDelegate extends BaseDelegate implements CategoriesContract.CategoriesView{
+public class NewsDelegate extends BaseDelegate implements CategoriesContract.CategoriesView {
     private CategoriesContract.CategoriesPresenter presenter;
 
     private String TAG = this.getClass().getSimpleName();
@@ -134,7 +134,7 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
 
     private void initPresenter() {
         Log.d(this.getClass().getSimpleName(), " initPresenter()");
-        presenter  = new CategoriesContract.CategoriesPresenter() {
+        presenter = new CategoriesContract.CategoriesPresenter() {
             @Override
             public void start() {
 
@@ -149,18 +149,20 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
 
     @Override
     public void onCategoriesSucc(List<Categories> result) {
+        Log.d(getClass().getSimpleName(),"onCategoriesSucc");
         ArrayList<Categories> arrayList = (ArrayList<Categories>) result;
-
 
 
     }
 
     @Override
     public void onCategoriesFail() {
+        Log.d(getClass().getSimpleName(),"onCategoriesFail");
     }
 
     @Override
     public void setPresenter(Object presenter) {
+        Log.d(getClass().getSimpleName(),"setPresenter");
         this.presenter = (CategoriesContract.CategoriesPresenter) presenter;
     }
 }
