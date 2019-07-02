@@ -15,6 +15,7 @@ import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
 import com.kaixugege.xu_ec.R;
 import com.kaixugege.xu_ec.news.event.ChangeTabEvent;
 import com.kaixugege.xu_ec.news.event.RefreshEvent;
+import com.kaixugege.xu_ec.news.mvp.CategoriesPresenter;
 import com.xugege.xu_lib_tablayout.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -134,25 +135,13 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
 
     private void initPresenter() {
         Log.d(this.getClass().getSimpleName(), " initPresenter()");
-        presenter = new CategoriesContract.CategoriesPresenter() {
-            @Override
-            public void start() {
-
-            }
-
-            @Override
-            public Disposable categories() {
-                return null;
-            }
-        };
+        presenter = new CategoriesPresenter(this);
     }
 
     @Override
     public void onCategoriesSucc(List<Categories> result) {
         Log.d(getClass().getSimpleName(),"onCategoriesSucc");
         ArrayList<Categories> arrayList = (ArrayList<Categories>) result;
-
-
     }
 
     @Override

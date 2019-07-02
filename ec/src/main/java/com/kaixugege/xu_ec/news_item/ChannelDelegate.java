@@ -13,6 +13,7 @@ import com.kaixugege.xu_ec.news.mvp.CategoriesContract;
 import com.kaixugege.xu.core.net.entiy.Result;
 import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
 import com.kaixugege.xu_ec.R;
+import com.kaixugege.xu_ec.news.mvp.CategoriesPresenter;
 import com.kaixugege.xu_ec.news_item.adapter.MyMultAdapter;
 import com.kaixugege.xu_ec.news_item.mvp.DiscoveryContract;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -113,6 +114,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
     public void initPresent() {
 //        DiscoveryContract discoveryContract = new DiscoveryContract() {
 //        };
+//        presenter = new CategoriesPresenter(this);
     }
 
 
