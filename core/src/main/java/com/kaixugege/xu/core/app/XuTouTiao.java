@@ -13,7 +13,7 @@ import java.util.WeakHashMap;
  */
 public class XuTouTiao {
 
-    public static final WeakHashMap<Object, Object> getConfigurations() {
+    public static final WeakHashMap<String, Object> getConfigurations() {
         return Configurator.INSTANCE.getConfigs();
     }
 

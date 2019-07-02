@@ -17,8 +17,9 @@ public class MyApp extends XuApp {
         super.onCreate();
 
         XuTouTiao.init(getApplicationContext())
-                .withApiHost("127.0.0.1")
-                .withLoginReady(false);
+                .withApiHost("https:www.baidu.com")
+                .withLoginReady(false)
+                .withConfigReady(true);
 
     }
 

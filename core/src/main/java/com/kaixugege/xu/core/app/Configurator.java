@@ -34,6 +34,11 @@ public class Configurator {
         return this;
     }
 
+    public Configurator withConfigReady(boolean ready){
+        getConfigs().put(ConfigType.CONFIG_READY.name(), ready);
+        return this;
+    }
+
     //获取是否登陆,默认为false，没有登陆
     public boolean getLoginReady() {
         Object o = getConfigs().get(ConfigType.SIGN_IN_READY.name());

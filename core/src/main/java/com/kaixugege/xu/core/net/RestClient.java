@@ -2,18 +2,14 @@ package com.kaixugege.xu.core.net;
 
 import android.content.Context;
 
-import com.kaixugege.xu.core.app.ConfigType;
-import com.kaixugege.xu.core.app.Configurator;
 
 import java.io.File;
-import java.net.URL;
 import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.internal.http.HttpMethod;
 
 /**
  * @Author: KaixuGege
@@ -40,7 +36,7 @@ public class RestClient {
         return new RxRestClientBuilder();
     }
 
-    public Observable<String> request(EHttpType method) {
+    private Observable<String> request(EHttpType method) {
         final RxRestService service = RestCreator.RestServiceHolder.REST_SERVICE;
         Observable<String> observable = null;
         switch (method) {
