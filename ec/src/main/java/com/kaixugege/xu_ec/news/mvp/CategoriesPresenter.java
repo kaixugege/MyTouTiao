@@ -56,25 +56,28 @@ public class CategoriesPresenter implements CategoriesContract.CategoriesPresent
                 .params(mParams)
                 .build()
                 .get();
-        disposable = observable
+       observable
                 .subscribeOn(Schedulers.io())//指定被观察者执行的线程
                 .observeOn(AndroidSchedulers.mainThread())//指定观察者执行的线程
                 .subscribe(
-                        new Consumer<String>() {
+                        new Observer<String>() {
                             @Override
-                            public void accept(String s) throws Exception {
-                                Toast.makeText(context, "accept:\r\n" + s, Toast.LENGTH_LONG).show();
-                                Log.i(getClass().getSimpleName(), "accept " + s);
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
+                            public void onSubscribe(Disposable d) {
 
                             }
-                        },
-                        new Action() {
+
                             @Override
-                            public void run() throws Exception {
+                            public void onNext(String s) {
+                                Toast.makeText(context, "accept:\r\n" + s, Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
 
                             }
                         }
