@@ -6,11 +6,13 @@ import android.util.Log;
 
 
 import android.widget.Toast;
+import com.kaixugege.xu.core.net.RestClient;
 import com.kaixugege.xu.core.net.RxRestService;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
@@ -48,93 +50,48 @@ public class CategoriesPresenter implements CategoriesContract.CategoriesPresent
     @Override
     public Disposable categories() {
         Log.d(getClass().getSimpleName(), "categories   这里要加载数据 ");
-//        Observable<String> observable = RestClient.builder()
-//                .url("https://www.baidu.com")
-//                .build()
-//                .get();
-//        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//
-//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);//日志级别
-//        builder.addInterceptor(loggingInterceptor);
-//
-//        OkHttpClient client = builder.build();
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("https://www.baidu.com/")
-//                .addConverterFactory(ScalarsConverterFactory.create())
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .client(client)
-//                .build();
-//        RxRestService  rxRestService = retrofit.create(RxRestService.class);
-//        HashMap<String, Object> filedMap = new HashMap<String, Object>();
-//        Observable<String> observable = rxRestService.get("",filedMap);
-//        Log.d(getClass().getSimpleName(), "categories   observer是否为空 " + observable);
-        Observer<String> observer = new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                disposable = d;
-                Log.d(getClass().getSimpleName(), "onSubscribe");
-            }
+        HashMap<String, Object> mParams = new HashMap<>();
+        Observable<String> observable = RestClient.builder()
+                .url("")
+                .params(mParams)
+                .build()
+                .get();
+        disposable = observable
+                .subscribeOn(Schedulers.io())//指定被观察者执行的线程
+                .observeOn(AndroidSchedulers.mainThread())//指定观察者执行的线程
+                .subscribe(
+                        new Consumer<String>() {
+                            @Override
+                            public void accept(String s) throws Exception {
+                                Toast.makeText(context, "accept:\r\n" + s, Toast.LENGTH_LONG).show();
+                                Log.i(getClass().getSimpleName(), "accept " + s);
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
 
-            @Override
-            public void onNext(String s) {
-                Log.d(getClass().getSimpleName(), "onNext  获取的数据为" + s);
-            }
+                            }
+                        },
+                        new Action() {
+                            @Override
+                            public void run() throws Exception {
 
-            @Override
-            public void onError(Throwable e) {
-                Log.d(getClass().getSimpleName(), "onError");
-            }
-
-            @Override
-            public void onComplete() {
-                Log.d(getClass().getSimpleName(), "onComplete");
-            }
-        };
-//
-//        observable
-//                .subscribeOn(Schedulers.io())//指定被观察者执行的线程
-//                .observeOn(AndroidSchedulers.mainThread())//指定观察者执行的线程
-//                .observeOn(Schedulers.io())
-//                .subscribe(new Consumer<String>() {
-//                    @Override
-//                    public void accept(String s) throws Exception {
-//                        Log.i(getClass().getSimpleName(), "accept " + s);
-//                    }
-//                });
-
-
-        final RxRestService rxRestService;
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);//日志级别
-//        builder.addInterceptor(loggingInterceptor);
-        OkHttpClient client = builder.build();
-        final Retrofit rrr = new Retrofit.Builder()
-                .baseUrl("https://www.baidu.com/")
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .client(client)
-                .build();
-
-        rxRestService = rrr.create(RxRestService.class);
-        HashMap<String, Object> filedMap = new HashMap();
-        try {
-            rxRestService
-                    .get("", filedMap)
-                    .subscribeOn(Schedulers.io())//指定被观察者执行的线程
-                    .observeOn(AndroidSchedulers.mainThread())//指定观察者执行的线程
-                    .subscribe(new Consumer<String>() {
-                        @Override
-                        public void accept(String s) throws Exception {
-                            Log.e(getClass().getSimpleName(), "accept = " + s);
-                            Toast.makeText(context,"获取到的数据\r\n"+s,Toast.LENGTH_LONG).show();
+                            }
                         }
-                    });
-        } catch (Exception ex) {
-            Log.e(getClass().getSimpleName(), "categories  ex  " + ex.getMessage());
-        }
-
+                );
+//
+//        , new Consumer<String>() {
+//            @Override
+//            public void accept(String s) throws Exception {
+//                Toast.makeText(context, "accept:\r\n" + s, Toast.LENGTH_LONG).show();
+//                Log.i(getClass().getSimpleName(), "accept " + s);
+//            }
+//        }, new Consumer<Throwable>() {
+//            @Override
+//            public void accept(Throwable throwable) throws Exception {
+//
+//            }
+//        }
         return disposable;
     }
 

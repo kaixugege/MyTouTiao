@@ -25,11 +25,12 @@ public class RestClient {
     private File File;
     private static final Map<String, Object> PARAMS = RestCreator.getParans();
 
-    public RestClient(String url, RequestBody body, Context context, File file) {
+    public RestClient(String url, RequestBody body, Context context, File file,Map<String, Object> params) {
         Url = url;
         BODY = body;
         Context = context;
         File = file;
+        PARAMS.putAll(params);
     }
 
     public static RxRestClientBuilder builder() {

@@ -154,4 +154,9 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
         Log.d(getClass().getSimpleName(),"setPresenter");
         this.presenter = (CategoriesContract.CategoriesPresenter) presenter;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

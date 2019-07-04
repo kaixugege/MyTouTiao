@@ -3,6 +3,7 @@ package com.kaixugege.xu.core.net;
 import android.content.Context;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -62,7 +63,19 @@ public class RxRestClientBuilder {
     private Context mContext = null;
     private File mFile = null;
 
+    public RxRestClientBuilder params(HashMap<String, Object> mParams) {
+        this.mParams = mParams;
+        return this;
+    }
+
+    public RxRestClientBuilder params(String key, Object value) {
+        this.mParams.put(key, value);
+        return this;
+    }
+
+    private HashMap<String, Object> mParams;
+
     public final RestClient build() {
-        return new RestClient(mUrl, mBODY, mContext, mFile);
+        return new RestClient(mUrl, mBODY, mContext, mFile, mParams);
     }
 }
