@@ -1,8 +1,11 @@
 package com.kaixugege.xu_ec.news.mvp;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 
+import android.widget.Toast;
 import com.kaixugege.xu.core.net.RxRestService;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -27,9 +30,16 @@ import java.util.HashMap;
  */
 public class CategoriesPresenter implements CategoriesContract.CategoriesPresenter {
     private Disposable disposable;
+    private Context context;
 
     public CategoriesPresenter(CategoriesContract.CategoriesView categoriesView) {
         this.categoriesView = categoriesView;
+    }
+
+
+    public CategoriesPresenter(CategoriesContract.CategoriesView categoriesView, Context activity) {
+        this.categoriesView = categoriesView;
+        this.context = activity;
     }
 
     private CategoriesContract.CategoriesView categoriesView;
@@ -85,7 +95,7 @@ public class CategoriesPresenter implements CategoriesContract.CategoriesPresent
 //        observable
 //                .subscribeOn(Schedulers.io())//指定被观察者执行的线程
 //                .observeOn(AndroidSchedulers.mainThread())//指定观察者执行的线程
-////                .observeOn(Schedulers.io())
+//                .observeOn(Schedulers.io())
 //                .subscribe(new Consumer<String>() {
 //                    @Override
 //                    public void accept(String s) throws Exception {
@@ -94,32 +104,35 @@ public class CategoriesPresenter implements CategoriesContract.CategoriesPresent
 //                });
 
 
-
-
         final RxRestService rxRestService;
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);//日志级别
-            builder.addInterceptor(loggingInterceptor);
+//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);//日志级别
+//        builder.addInterceptor(loggingInterceptor);
         OkHttpClient client = builder.build();
         final Retrofit rrr = new Retrofit.Builder()
                 .baseUrl("https://www.baidu.com/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(client)
+//                .client(client)
                 .build();
 
-//        rxRestService = RestServer.INSTANCE().getRetrofit().create(RxRestService.class);
-        rxRestService =rrr.create(RxRestService.class);
-        HashMap<String, Object> filedMap = new HashMap<String, Object>();
+        rxRestService = rrr.create(RxRestService.class);
+        HashMap<String, Object> filedMap = new HashMap();
         try {
-            rxRestService.get("", filedMap)
+            rxRestService
+                    .get("", filedMap)
                     .subscribeOn(Schedulers.io())//指定被观察者执行的线程
                     .observeOn(AndroidSchedulers.mainThread())//指定观察者执行的线程
-                    .subscribe(observer);
-        }
-        catch (Exception ex){
-            Log.e(getClass().getSimpleName(),"categories  ex  "+ex.getMessage());
+                    .subscribe(new Consumer<String>() {
+                        @Override
+                        public void accept(String s) throws Exception {
+                            Log.e(getClass().getSimpleName(), "accept = " + s);
+                            Toast.makeText(context,"获取到的数据\r\n"+s,Toast.LENGTH_LONG).show();
+                        }
+                    });
+        } catch (Exception ex) {
+            Log.e(getClass().getSimpleName(), "categories  ex  " + ex.getMessage());
         }
 
         return disposable;

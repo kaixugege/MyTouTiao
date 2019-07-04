@@ -40,25 +40,32 @@ public class RestClient {
         final RxRestService service = RestCreator.RestServiceHolder.REST_SERVICE;
         Observable<String> observable = null;
         switch (method) {
+
             case GET:
                 observable = service.get(Url, PARAMS);
                 break;
+
             case PUT:
                 observable = service.put(Url, PARAMS);
                 break;
+
             case POST:
                 observable = service.post(Url, PARAMS);
                 break;
+
             case DELETE:
                 observable = service.delete(Url, PARAMS);
                 break;
+
             case UPLOAD:
                 final RequestBody requestBody = RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()), File);
                 final MultipartBody.Part body = MultipartBody.Part.createFormData("file", File.getName(), requestBody);
                 observable = service.upload(Url, body);
                 break;
+
             default:
                 break;
+
         }
         return observable;
     }
