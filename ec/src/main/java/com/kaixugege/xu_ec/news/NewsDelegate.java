@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -35,6 +37,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class NewsDelegate extends BaseDelegate implements CategoriesContract.CategoriesView {
     private CategoriesContract.CategoriesPresenter presenter;
+    private CompositeDisposable compositeDisposable;//用雨存放Disposable
 
     private String TAG = this.getClass().getSimpleName();
     private final String[] mTitles = {
@@ -62,6 +65,7 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
 
     @Override
     public void onBindView(View rootView) {
+
         Log.d("NewsDelegate", "onBindView");
     }
 
@@ -74,6 +78,9 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
             public void onFragmentFirstVisible(View rootView) {
                 Log.d(this.getClass().getSimpleName(), "懒加载，第一次显示页面");
                 Toast.makeText(getActivity(), "News  第一次显示出来", Toast.LENGTH_LONG).show();
+                if (compositeDisposable == null) {
+                    compositeDisposable = new CompositeDisposable();
+                }
                 initPresenter();
                 initEvent();
                 initView(rootView);
@@ -90,8 +97,13 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
     }
 
     private void initData() {
-        if (presenter != null)
-            presenter.categories();
+
+        if (presenter != null) {
+            Disposable disposable = presenter.categories();
+            if (disposable != null)
+                compositeDisposable.add(disposable);
+        }
+
     }
 
     private void initView(View rootView) {
@@ -114,7 +126,7 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
     private void initEvent() {
         Log.d(this.getClass().getSimpleName(), " initEvent()");
 
-        RxBus.getInstance().toObservable(RefreshEvent.class).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+        Disposable disposableRefresh = RxBus.getInstance().toObservable(RefreshEvent.class).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<RefreshEvent>() {
                     @Override
                     public void accept(RefreshEvent refreshEvent) throws Exception {
@@ -122,41 +134,51 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
                     }
 
                 });
+        if (disposableRefresh != null)
+            compositeDisposable.add(disposableRefresh);
+        else
+            Log.i(getClass().getSimpleName(), "disposableRefresh 为空");
 
-
-        RxBus.getInstance().toObservable(ChangeTabEvent.class).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+        Disposable disposableChangeTab = RxBus.getInstance().toObservable(ChangeTabEvent.class).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ChangeTabEvent>() {
                     @Override
                     public void accept(ChangeTabEvent changeTabEvent) throws Exception {
                         Log.d(TAG, "ChangeTabEvent  ");
                     }
                 });
+        if (disposableChangeTab != null)
+            compositeDisposable.add(disposableChangeTab);
+        else
+            Log.i(getClass().getSimpleName(), "compositeDisposable 为空");
     }
 
     private void initPresenter() {
         Log.d(this.getClass().getSimpleName(), " initPresenter()");
-        presenter = new CategoriesPresenter(this,this.getActivity());
+        presenter = new CategoriesPresenter(this, this.getActivity());
     }
 
     @Override
     public void onCategoriesSucc(List<Categories> result) {
-        Log.d(getClass().getSimpleName(),"onCategoriesSucc");
+        Log.d(getClass().getSimpleName(), "onCategoriesSucc");
         ArrayList<Categories> arrayList = (ArrayList<Categories>) result;
     }
 
     @Override
     public void onCategoriesFail() {
-        Log.d(getClass().getSimpleName(),"onCategoriesFail");
+        Log.d(getClass().getSimpleName(), "onCategoriesFail");
     }
 
     @Override
     public void setPresenter(Object presenter) {
-        Log.d(getClass().getSimpleName(),"setPresenter");
+        Log.d(getClass().getSimpleName(), "setPresenter");
         this.presenter = (CategoriesContract.CategoriesPresenter) presenter;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (compositeDisposable != null && !compositeDisposable.isDisposed()) {
+            compositeDisposable.dispose();
+        }
     }
 }

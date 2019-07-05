@@ -31,6 +31,7 @@ import java.util.HashMap;
  * Info:
  */
 public class CategoriesPresenter implements CategoriesContract.CategoriesPresenter {
+    private static final String TAG = "CategoriesPresenter";
     private Disposable disposable;
     private Context context;
 
@@ -63,22 +64,27 @@ public class CategoriesPresenter implements CategoriesContract.CategoriesPresent
                         new Observer<String>() {
                             @Override
                             public void onSubscribe(Disposable d) {
+                                Log.d(TAG,"onSubscribe  ");
+                                disposable = d;
 
                             }
 
                             @Override
                             public void onNext(String s) {
-                                Toast.makeText(context, "accept:\r\n" + s, Toast.LENGTH_LONG).show();
+                                Log.d(TAG,"onNext  "+s);
+                                Toast.makeText(context, "onNext:\r\n" + s, Toast.LENGTH_LONG).show();
+                                categoriesView.onCategoriesSucc(null);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                Log.d(TAG,"onError  ");
+                                categoriesView.onCategoriesFail();
                             }
 
                             @Override
                             public void onComplete() {
-
+                                Log.d(TAG,"onComplete  ");
                             }
                         }
                 );
