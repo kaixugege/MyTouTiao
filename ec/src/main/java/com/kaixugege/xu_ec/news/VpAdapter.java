@@ -26,6 +26,8 @@ class VpAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> mFragments;
 
+    private ArrayList<NewsTab.Tab> tabs;
+
 
     public VpAdapter(FragmentManager fm) {
         super(fm);

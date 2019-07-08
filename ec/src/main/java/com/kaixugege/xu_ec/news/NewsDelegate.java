@@ -36,12 +36,9 @@ import io.reactivex.schedulers.Schedulers;
 public class NewsDelegate extends BaseDelegate implements CategoriesContract.CategoriesView {
     private CategoriesContract.CategoriesPresenter presenter;
     private CompositeDisposable compositeDisposable;//用雨存放Disposable
-
+    private NewsTab newsTab;
     private String TAG = this.getClass().getSimpleName();
-    private final String[] mTitles = {
-            "热门", "iOS", "Android"
-            , "前端", "后端", "设计", "工具资源"
-    };
+
     ViewPager viewPager;
     VpAdapter vpAdapter;
     SlidingTabLayout tab;
@@ -63,7 +60,7 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
 
     @Override
     public void onBindView(View rootView) {
-
+        newsTab = new NewsTab();
         Log.d("NewsDelegate", "onBindView");
     }
 
@@ -108,8 +105,6 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
         tab = ViewFindUtils.find(rootView, R.id.content_tablayout);
         search = ViewFindUtils.find(rootView, R.id.iv_search);
         add = ViewFindUtils.find(rootView, R.id.iv_add);
-
-
     }
 
     private void initEvent() {
@@ -166,6 +161,11 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
     @Override
     public void onDestroy() {
         super.onDestroy();
+        rest();
+    }
+
+    private void rest() {
+        newsTab = null;
         if (compositeDisposable != null && !compositeDisposable.isDisposed()) {
             compositeDisposable.dispose();
         }
