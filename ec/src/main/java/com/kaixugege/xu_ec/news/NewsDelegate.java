@@ -18,13 +18,11 @@ import com.kaixugege.xu_ec.news.event.RefreshEvent;
 import com.kaixugege.xu_ec.news.mvp.CategoriesPresenter;
 import com.xugege.xu_lib_tablayout.tablayout.SlidingTabLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -32,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
  * @Author: KaixuGege
  * Time:           2019/4/18
  * ProjectName:    MyTouTiao
- * ClassName:
+ * ClassName:      NewsDelegate
  * Info:
  */
 public class NewsDelegate extends BaseDelegate implements CategoriesContract.CategoriesView {
@@ -91,7 +89,6 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
             public void onFragmentVisibleChange(boolean isVisible) {
                 Log.d(this.getClass().getSimpleName(), "懒加载，第一次显示页面");
                 Toast.makeText(getActivity(), " News change " + isVisible, Toast.LENGTH_SHORT).show();
-
             }
         };
     }
@@ -112,32 +109,19 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
         search = ViewFindUtils.find(rootView, R.id.iv_search);
         add = ViewFindUtils.find(rootView, R.id.iv_add);
 
-        vpAdapter = new VpAdapter(getFragmentManager(), Helper.initChannelData(), Helper.initFragmentData());
-        viewPager.setAdapter(vpAdapter);
 
-
-        tab.setViewPager(viewPager, Helper.getData(), getActivity(), Helper.initFragmentData());
-        tab.setTabPadding(12);
-        tab.setTabSpaceEqual(true);
-        tab.setTextSelectColor(getActivity().getResources().getColor(R.color.black));
-        tab.setTextUnselectColor(getActivity().getResources().getColor(R.color.textbg));
     }
 
     private void initEvent() {
         Log.d(this.getClass().getSimpleName(), " initEvent()");
-
         Disposable disposableRefresh = RxBus.getInstance().toObservable(RefreshEvent.class).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<RefreshEvent>() {
                     @Override
                     public void accept(RefreshEvent refreshEvent) throws Exception {
                         Log.d(TAG, "RefreshEvent  ");
                     }
-
                 });
-        if (disposableRefresh != null)
-            compositeDisposable.add(disposableRefresh);
-        else
-            Log.i(getClass().getSimpleName(), "disposableRefresh 为空");
+        compositeDisposable.add(disposableRefresh);
 
         Disposable disposableChangeTab = RxBus.getInstance().toObservable(ChangeTabEvent.class).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ChangeTabEvent>() {
@@ -146,10 +130,7 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
                         Log.d(TAG, "ChangeTabEvent  ");
                     }
                 });
-        if (disposableChangeTab != null)
-            compositeDisposable.add(disposableChangeTab);
-        else
-            Log.i(getClass().getSimpleName(), "compositeDisposable 为空");
+        boolean add = compositeDisposable.add(disposableChangeTab);
     }
 
     private void initPresenter() {
@@ -160,7 +141,15 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
     @Override
     public void onCategoriesSucc(List<Categories> result) {
         Log.d(getClass().getSimpleName(), "onCategoriesSucc");
-        ArrayList<Categories> arrayList = (ArrayList<Categories>) result;
+        vpAdapter = new VpAdapter(getFragmentManager(), Helper.initChannelData(), Helper.initFragmentData());
+        viewPager.setAdapter(vpAdapter);
+        if (this.getActivity() != null) {
+            tab.setViewPager(viewPager, Helper.getData(), this.getActivity(), Helper.initFragmentData());
+            tab.setTabPadding(12);
+            tab.setTabSpaceEqual(true);
+            tab.setTextSelectColor(getActivity().getResources().getColor(R.color.black));
+            tab.setTextUnselectColor(getActivity().getResources().getColor(R.color.textbg));
+        }
     }
 
     @Override

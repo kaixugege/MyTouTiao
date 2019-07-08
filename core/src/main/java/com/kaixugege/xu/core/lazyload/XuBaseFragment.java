@@ -35,6 +35,7 @@ public abstract class XuBaseFragment extends BaseFragment {
                 rootView = (View) getLayout();
             }
             onBindView(rootView);
+
         } else {
             ViewGroup parent = (ViewGroup) rootView.getParent();
             if (parent != null) {

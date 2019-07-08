@@ -20,21 +20,12 @@ public class Helper {
     }
 
     private static List<String> data = new ArrayList<>();
+    private static String[] tabs = {"娱乐","军事","汽车","财经","笑话","体育","科技","感情","头条"};
 
     static {
-        data.add("关注");
-        data.add("头条");
-        data.add("视频");
-        data.add("娱乐");
-        data.add("体育");
-        data.add("新时代");
-        data.add("动漫");
-        data.add("要闻");
-        data.add("段子");
-        data.add("北京");
-        data.add("美图");
-        data.add("汽车");
-        data.add("科技");
+        data.add(tabs[0]);
+        data.add(tabs[1]);
+        data.add(tabs[2]);
     }
 
 

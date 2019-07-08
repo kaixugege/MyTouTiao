@@ -1,25 +1,17 @@
 package com.kaixugege.xu_ec.news.mvp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
 
 import android.widget.Toast;
+import com.kaixugege.xu.core.net.Net;
 import com.kaixugege.xu.core.net.RestClient;
-import com.kaixugege.xu.core.net.RxRestService;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import java.util.HashMap;
 
@@ -53,7 +45,7 @@ public class CategoriesPresenter implements CategoriesContract.CategoriesPresent
         Log.d(getClass().getSimpleName(), "categories   这里要加载数据 ");
         HashMap<String, Object> mParams = new HashMap<>();
         Observable<String> observable = RestClient.builder()
-                .url("")
+                .url(Net.instance().getApi().get("news_list"))
                 .params(mParams)
                 .build()
                 .get();
@@ -78,7 +70,7 @@ public class CategoriesPresenter implements CategoriesContract.CategoriesPresent
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.d(TAG,"onError  ");
+                                Log.d(TAG,"onError  "+e.getMessage());
                                 categoriesView.onCategoriesFail();
                             }
 
