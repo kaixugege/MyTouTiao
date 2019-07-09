@@ -2,6 +2,7 @@ package com.kaixugege.xu_ec.news_item.mvp;
 
 import com.kaixugege.xu.core.net.entiy.Result;
 
+import com.kaixugege.xu_ec.news_item.entiy.BNews;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -18,7 +19,7 @@ public interface DiscoveryContract {
     }
 
     public interface DiscoveryView{
-        void onDiscoverySuccess(Result result);
+        void onDiscoverySuccess(BNews bNews);
         void onDiscoveryFailed(Throwable error);
     }
 

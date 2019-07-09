@@ -15,7 +15,9 @@ import com.kaixugege.xu.core.net.entiy.Result;
 import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
 import com.kaixugege.xu_ec.R;
 import com.kaixugege.xu_ec.news_item.adapter.MyMultAdapter;
+import com.kaixugege.xu_ec.news_item.entiy.BNews;
 import com.kaixugege.xu_ec.news_item.mvp.DiscoveryContract;
+import com.kaixugege.xu_ec.news_item.mvp.DiscoveryPresenter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -42,7 +44,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
     public MyMultAdapter adapter;
     private NewsTab.Tab tab;
 
-    public ChannelDelegate(String cc,NewsTab.Tab tab) {
+    public ChannelDelegate(String cc, NewsTab.Tab tab) {
         this.ccTxt = cc;
         this.tab = tab;
     }
@@ -144,7 +146,8 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
     }
 
     @Override
-    public void onDiscoverySuccess(Result result) {
+    public void onDiscoverySuccess(BNews bNews) {
+
         int start = adapter.getItemCount();
     }
 
