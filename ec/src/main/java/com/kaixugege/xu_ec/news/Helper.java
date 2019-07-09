@@ -14,13 +14,13 @@ import java.util.List;
  * ClassName:
  * Info:
  */
-public class Helper {
+public final class Helper {
     public static String[] getData() {
         return data.toArray(new String[data.size()]);
     }
 
     private static List<String> data = new ArrayList<>();
-    private static String[] tabs = {"娱乐","军事","汽车","财经","笑话","体育","科技","感情","头条"};
+    public static String[] tabs = {"娱乐", "军事", "汽车", "财经", "笑话", "体育", "科技", "感情", "头条"};
 
     static {
         data.add(tabs[0]);
@@ -29,21 +29,25 @@ public class Helper {
     }
 
 
-    public static List<Channel> initChannelData() {
+    public static List<Channel> initChannelData(NewsTab newsTab) {
         List<Channel> mSelectedChannels = new ArrayList<>();
-        for (String data : data) {
-            String title = data;
-            String code = data;
-            mSelectedChannels.add(new Channel(title, code));
+        for (int i = 0; i < newsTab.getTabs().size(); i++) {
+            if (newsTab.getTabs().get(i).isState()) {
+                String title = newsTab.getTabs().get(i).getTitle();
+                String code = newsTab.getTabs().get(i).getTitle();
+                mSelectedChannels.add(new Channel(title, code));
+            }
         }
         return mSelectedChannels;
     }
 
 
-    public static ArrayList<Fragment> initFragmentData() {
+    public static ArrayList<Fragment> initFragmentData(NewsTab newsTab) {
         ArrayList<Fragment> mFragmentChannels = new ArrayList<>();
-        for (int i = 0; i < initChannelData().size(); i++) {
-            mFragmentChannels.add(new ChannelDelegate(initChannelData().get(i).getChanglCode()));
+        for (int i = 0; i < newsTab.getTabs().size(); i++) {
+            if (newsTab.getTabs().get(i).isState()) {
+                mFragmentChannels.add(new ChannelDelegate(initChannelData(newsTab).get(i).getChanglCode(), newsTab.getTabs().get(i)));
+            }
         }
         return mFragmentChannels;
     }

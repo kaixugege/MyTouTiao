@@ -54,6 +54,7 @@ public class CategoriesPresenter implements CategoriesContract.CategoriesPresent
                 .observeOn(AndroidSchedulers.mainThread())//指定观察者执行的线程
                 .subscribe(
                         new Observer<String>() {
+
                             @Override
                             public void onSubscribe(Disposable d) {
                                 Log.d(TAG,"onSubscribe  ");
@@ -78,6 +79,7 @@ public class CategoriesPresenter implements CategoriesContract.CategoriesPresent
                             public void onComplete() {
                                 Log.d(TAG,"onComplete  ");
                             }
+
                         }
                 );
 //

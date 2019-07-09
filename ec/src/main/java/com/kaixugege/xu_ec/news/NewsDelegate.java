@@ -60,7 +60,11 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
 
     @Override
     public void onBindView(View rootView) {
-        newsTab = new NewsTab();
+        newsTab = new NewsTab()
+                .changeTabState(0, true)
+                .changeTabState(1, true)
+                .changeTabState(2, true);
+
         Log.d("NewsDelegate", "onBindView");
     }
 
@@ -136,10 +140,10 @@ public class NewsDelegate extends BaseDelegate implements CategoriesContract.Cat
     @Override
     public void onCategoriesSucc(List<Categories> result) {
         Log.d(getClass().getSimpleName(), "onCategoriesSucc");
-        vpAdapter = new VpAdapter(getFragmentManager(), Helper.initChannelData(), Helper.initFragmentData());
+        vpAdapter = new VpAdapter(getFragmentManager(), Helper.initChannelData(newsTab), Helper.initFragmentData(newsTab));
         viewPager.setAdapter(vpAdapter);
         if (this.getActivity() != null) {
-            tab.setViewPager(viewPager, Helper.getData(), this.getActivity(), Helper.initFragmentData());
+            tab.setViewPager(viewPager, Helper.getData(), this.getActivity(), Helper.initFragmentData(newsTab));
             tab.setTabPadding(12);
             tab.setTabSpaceEqual(true);
             tab.setTextSelectColor(getActivity().getResources().getColor(R.color.black));

@@ -37,8 +37,7 @@ public class Channel {
     private String title;
     private String changlCode;
     private int itemType;
-
-
+    
     public Channel(String title, String changlCode, int itemType) {
         this.title = title;
         this.changlCode = changlCode;
@@ -47,8 +46,8 @@ public class Channel {
 
     public Channel(String title, String channelCode) {
         this( title, channelCode,TYPE_MY_CHANNEL);
-
     }
+
     public void setItemType(int itemType){
         this.itemType = itemType;
     }

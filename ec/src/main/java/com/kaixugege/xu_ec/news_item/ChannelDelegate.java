@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kaixugege.xu.core.lazyload.ILazyLoda;
+import com.kaixugege.xu_ec.news.NewsTab;
 import com.kaixugege.xu_ec.news.mvp.CategoriesContract;
 import com.kaixugege.xu.core.net.entiy.Result;
 import com.kaixugege.xu.core.ui.fragments.BaseDelegate;
 import com.kaixugege.xu_ec.R;
-import com.kaixugege.xu_ec.news.mvp.CategoriesPresenter;
 import com.kaixugege.xu_ec.news_item.adapter.MyMultAdapter;
 import com.kaixugege.xu_ec.news_item.mvp.DiscoveryContract;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -40,9 +40,11 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
     private RecyclerView recylerview;
     private CategoriesContract.CategoriesPresenter presenter;
     public MyMultAdapter adapter;
+    private NewsTab.Tab tab;
 
-    public ChannelDelegate(String cc) {
+    public ChannelDelegate(String cc,NewsTab.Tab tab) {
         this.ccTxt = cc;
+        this.tab = tab;
     }
 
 
@@ -114,7 +116,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
     public void initPresent() {
 //        DiscoveryContract discoveryContract = new DiscoveryContract() {
 //        };
-//        presenter = new CategoriesPresenter(this);
+        presenter = new DiscoveryPresenter(this);
     }
 
 
