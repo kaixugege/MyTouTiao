@@ -25,7 +25,7 @@ import java.util.HashMap;
  * Info:
  */
 public class DiscoveryPresenter implements CategoriesContract.CategoriesPresenter {
-
+    Disposable disposable = null;
     public DiscoveryContract.DiscoveryView discoveryView;
 
     public DiscoveryPresenter(DiscoveryContract.DiscoveryView discoveryView) {
@@ -34,7 +34,7 @@ public class DiscoveryPresenter implements CategoriesContract.CategoriesPresente
 
     @Override
     public Disposable categories() {
-           Disposable disposable = null;
+
         Log.d(getClass().getSimpleName(), "categories   这里要加载数据 ");
         HashMap<String, Object> mParams = new HashMap<>();
         Observable<String> observable = RestClient.builder()
@@ -44,6 +44,7 @@ public class DiscoveryPresenter implements CategoriesContract.CategoriesPresente
         observable.subscribe(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
+                disposable = d;
             }
 
             @Override
@@ -62,8 +63,6 @@ public class DiscoveryPresenter implements CategoriesContract.CategoriesPresente
 
             }
         });
-
-
         return disposable;
     }
 
