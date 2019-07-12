@@ -34,11 +34,11 @@ public class BNews {
 
 
     public static class Data{
-        public ArrayList<String> getList() {
+        public ArrayList<DataItem> getList() {
             return list;
         }
 
-        public void setList(ArrayList<String> list) {
+        public void setList(ArrayList<DataItem> list) {
             this.list = list;
         }
 
@@ -78,7 +78,7 @@ public class BNews {
         private int count;
         private int psize;
         private int page;
-        private ArrayList<String> list;
+        private ArrayList<DataItem> list;
 
     }
 

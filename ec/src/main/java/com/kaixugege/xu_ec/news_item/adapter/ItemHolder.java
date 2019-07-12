@@ -1,7 +1,10 @@
 package com.kaixugege.xu_ec.news_item.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import com.kaixugege.xu_ec.R;
 
 /**
  * @Author: KaixuGege
@@ -12,8 +15,7 @@ import android.view.ViewGroup;
  */
 public class ItemHolder {
     public static RecyclerView.ViewHolder createViewHolder(ViewGroup viewGroup, int ViewType) {
-
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.delegate_channel, viewGroup, false);
         return null;
-
     }
 }

@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -109,7 +111,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
         });
         ArrayList list = new ArrayList<Result.ItemList>();
         recylerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new MyMultAdapter(new ArrayList<Result.ItemList>(), null);//先给个空的当作默认参数
+        adapter = new MyMultAdapter(new ArrayList<BNews.DataItem>(), null);//先给个空的当作默认参数
         recylerview.setAdapter(adapter);
 
 
@@ -147,12 +149,22 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
     @Override
     public void onDiscoverySuccess(BNews bNews) {
-
+        if (adapter == null) {
+            return;
+        }
         int start = adapter.getItemCount();
+        //先清除
+        adapter.clearAll();
+        adapter.notifyItemRangeRemoved(0, start);
+        //再添加
+        adapter.addAll(bNews.getData().getList());
+        refreshLayout.finishRefresh();
+//        refreshLayout.isLoad = true;
     }
 
     @Override
     public void onDiscoveryFailed(Throwable error) {
-
+        refreshLayout.finishLoadMore();
+        refreshLayout.finishRefresh();
     }
 }

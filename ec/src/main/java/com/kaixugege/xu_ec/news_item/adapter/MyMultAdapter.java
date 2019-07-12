@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.kaixugege.xu.core.net.entiy.Result;
+import com.kaixugege.xu_ec.news.NewsTab;
+import com.kaixugege.xu_ec.news_item.entiy.BNews;
 
 import java.util.ArrayList;
 
@@ -18,10 +20,10 @@ import java.util.ArrayList;
  */
 public class MyMultAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<Result.ItemList> datas;
+    private ArrayList<BNews.DataItem> datas;
     private Context mContext;
 
-    public MyMultAdapter(ArrayList<Result.ItemList> datas, Context mContext) {
+    public MyMultAdapter(ArrayList<BNews.DataItem> datas, Context mContext) {
         this.datas = datas;
         this.mContext = mContext;
     }
@@ -31,12 +33,17 @@ public class MyMultAdapter extends RecyclerView.Adapter {
         if (this.datas != null)
             this.datas.clear();
     }
+//
+//    public void addAll(ArrayList<Result.ItemList> dataList) {
+//        if (this.datas != null) {
+//            this.datas.addAll(dataList);
+//        }
+//    }
 
-    public void addAll(ArrayList<Result.ItemList> dataList) {
+    public void addAll(ArrayList<BNews.DataItem> dataItems) {
         if (this.datas != null) {
-            this.datas.addAll(dataList);
+            this.datas.addAll(dataItems);
         }
-
     }
 
     @NonNull
