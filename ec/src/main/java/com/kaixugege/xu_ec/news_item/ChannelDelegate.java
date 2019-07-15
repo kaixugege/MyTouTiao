@@ -4,15 +4,12 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kaixugege.xu.core.lazyload.ILazyLoda;
-import com.kaixugege.xu.core.lazyload.XuLazyFragment;
 import com.kaixugege.xu_ec.news.NewsTab;
 import com.kaixugege.xu_ec.news.mvp.CategoriesContract;
 import com.kaixugege.xu.core.net.entiy.Result;
@@ -64,7 +61,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
     @Override
     public void onBindView(View rootView) {
-        Log.d(TAG, "onBindView"+tab.isState()+"  "+tab.getTitle());
+        Log.d(TAG, "onBindView  "+tab.isState()+"  "+tab.getTitle()+"  "+tab.getPosition()+"  "+tab.getNum());
     }
 
     public void initView(View rootView) {
