@@ -5,12 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kaixugege.xu.core.lazyload.ILazyLoda;
+import com.kaixugege.xu.core.lazyload.XuLazyFragment;
 import com.kaixugege.xu_ec.news.NewsTab;
 import com.kaixugege.xu_ec.news.mvp.CategoriesContract;
 import com.kaixugege.xu.core.net.entiy.Result;
@@ -45,6 +47,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
     private CategoriesContract.CategoriesPresenter presenter;
     public MyMultAdapter adapter;
     private NewsTab.Tab tab;
+    private String TAG = ChannelDelegate.class.getSimpleName();
 
     public ChannelDelegate(String cc, NewsTab.Tab tab) {
         this.ccTxt = cc;
@@ -61,7 +64,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
     @Override
     public void onBindView(View rootView) {
-
+        Log.d(TAG, "onBindView"+tab.isState()+"  "+tab.getTitle());
     }
 
     public void initView(View rootView) {
@@ -135,6 +138,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
             @Override
             public void onFragmentFirstVisible(View rootView) {
+                Log.d(TAG, "onDiscoverySuccess");
                 initView(rootView);
                 initPresent();
                 initData();
@@ -149,10 +153,13 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
     @Override
     public void onDiscoverySuccess(BNews bNews) {
+        Log.d(TAG, "onDiscoverySuccess");
         if (adapter == null) {
             return;
         }
+
         int start = adapter.getItemCount();
+        Log.d(TAG, "onDiscoverySuccess " +bNews.getData().getList().size());
         //先清除
         adapter.clearAll();
         adapter.notifyItemRangeRemoved(0, start);

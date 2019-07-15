@@ -54,7 +54,7 @@ public class MyMultAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            ItemBind.bindViewHolder(viewHolder,position);
+            ItemBind.bindMultViewHolder(viewHolder,position,datas.get(position));
     }
 
     @Override
