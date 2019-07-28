@@ -19,13 +19,14 @@ import android.view.ViewGroup;
 public abstract class XuBaseFragment extends BaseFragment {
 
     private View rootView = null;
+    public String flag;
 
     public abstract Object getLayout();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d("XuBaseFragment","onCreateView");
+        Log.d("XuBaseFragment","onCreateView " +flag);
         if (rootView == null) {
 
             if (getLayout() == null) {

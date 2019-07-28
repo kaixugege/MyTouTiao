@@ -1,7 +1,9 @@
 package com.kaixugege.xu_ec.news_item;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -51,6 +53,12 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
         this.tab = tab;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        flag = "  " + tab.isState() + "  " + tab.getTitle() + "  " + tab.getPosition() + "  " + tab.getNum();
+        Log.d(TAG, "onCreate  " + tab.isState() + "  " + tab.getTitle() + "  " + tab.getPosition() + "  " + tab.getNum());
+    }
 
     @Override
     public Object getLayout() {
@@ -61,7 +69,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
 
     @Override
     public void onBindView(View rootView) {
-        Log.d(TAG, "onBindView  "+tab.isState()+"  "+tab.getTitle()+"  "+tab.getPosition()+"  "+tab.getNum());
+        Log.d(TAG, "onBindView  " + tab.isState() + "  " + tab.getTitle() + "  " + tab.getPosition() + "  " + tab.getNum());
     }
 
     public void initView(View rootView) {
@@ -156,7 +164,7 @@ public class ChannelDelegate extends BaseDelegate implements DiscoveryContract.D
         }
 
         int start = adapter.getItemCount();
-        Log.d(TAG, "onDiscoverySuccess " +bNews.getData().getList().size());
+        Log.d(TAG, "onDiscoverySuccess " + bNews.getData().getList().size());
         //先清除
         adapter.clearAll();
         adapter.notifyItemRangeRemoved(0, start);

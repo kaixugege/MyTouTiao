@@ -33,6 +33,7 @@ import io.reactivex.schedulers.Schedulers;
  * ClassName:      NewsDelegate
  * Info:
  */
+
 public class NewsDelegate extends BaseDelegate implements CategoriesContract.CategoriesView {
     private CategoriesContract.CategoriesPresenter presenter;
     private CompositeDisposable compositeDisposable;//用雨存放Disposable

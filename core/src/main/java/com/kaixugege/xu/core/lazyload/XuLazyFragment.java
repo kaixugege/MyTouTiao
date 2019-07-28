@@ -45,34 +45,34 @@ public abstract class XuLazyFragment extends XuBaseFragment {
         if (!isStartLazy()) return;//如果没有开启直接返回
 
         if (rootView == null) {
-            Log.d(TAG, "rootView" + " = null" + "返回");
+            Log.d(TAG, "setUserVisibleHint  rootView" + " = null" + "返回");
             return;
         } else {
-            Log.d(TAG, "rootView" + " != null");
+            Log.d(TAG, "setUserVisibleHint  rootView" + " != null");
         }
 
         if (isFist && isVisibleToUser) {
-            Log.d(TAG, "isFist = " + isFist + " isVisibleToUser=" + isVisibleToUser + "  这里是第一次进入了，所以调用onFragment");
+            Log.d(TAG, "setUserVisibleHint  isFist = " + isFist + " isVisibleToUser=" + isVisibleToUser + "  这里是第一次进入了，所以调用onFragment");
             setILoader().onFragmentFirstVisible(rootView); //如果第一次进入并且可见的//回调当前fragment首次可见
             if (setILoader() != null) {
-                Log.d(TAG, "开始第一次显示初始化界面");
+                Log.d(TAG, "setUserVisibleHint  开始第一次显示初始化界面");
                 setILoader().onFragmentVisibleChange(isVisibleToUser);
             }else{
-                Log.d(TAG, "开始第一次显示初始化界面");
+                Log.d(TAG, "setUserVisibleHint  开始第一次显示初始化界面");
             }
             isFist = false;//这里把首次可见给关闭
         } else {
-            Log.d(TAG, "isFist = " + isFist + " isVisibleToUser=" + isVisibleToUser);
+            Log.d(TAG, "setUserVisibleHint  isFist = " + isFist + " isVisibleToUser=" + isVisibleToUser);
         }
 
         //如果只是可见，不是首次可见
         if (isVisibleToUser) {
             isFragmentVisible = true;
-            Log.d(TAG, "isVisibleToUser = " + isVisibleToUser + " 这里只是可见 ");
+            Log.d(TAG, "setUserVisibleHint  isVisibleToUser = " + isVisibleToUser + " 这里只是可见 ");
             setILoader().onFragmentVisibleChange(isFragmentVisible);//回调当前fragment可见
             return;
         } else {
-            Log.d(TAG, "isVisibleToUser = " + isVisibleToUser);
+            Log.d(TAG, "setUserVisibleHint  isVisibleToUser = " + isVisibleToUser);
         }
 
         if (isFragmentVisible) {
@@ -80,7 +80,7 @@ public abstract class XuLazyFragment extends XuBaseFragment {
             isFragmentVisible = false;//更改标识
             setILoader().onFragmentVisibleChange(isFragmentVisible);//回调当前fragment不可见
         } else {
-            Log.d(TAG, "isFragmentVisible = " + isFragmentVisible);
+            Log.d(TAG, "setUserVisibleHint  isFragmentVisible = " + isFragmentVisible);
         }
 
     }
@@ -88,7 +88,7 @@ public abstract class XuLazyFragment extends XuBaseFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.d(getTag()," -----  执行 onViewCreated");
+        Log.d(getTag(),"onViewCreated   -----  执行 onViewCreated");
         //开启了懒加载
         if (isStartLazy()) {
 
@@ -101,7 +101,7 @@ public abstract class XuLazyFragment extends XuBaseFragment {
                 //这个函数判断 fragment 是否可见的
                 if (getUserVisibleHint()) {
                     if (isFist) {
-                        Log.d(TAG, "onViewCreated isFist= " + isFist +" 传入的view="+view+"  rootView="+rootView);
+                        Log.d(TAG, "onViewCreated  onViewCreated isFist= " + isFist +" 传入的view="+view+"  rootView="+rootView);
                         if (setILoader() != null) setILoader().onFragmentFirstVisible(rootView);
                         isFist = false;
                     }

@@ -34,5 +34,6 @@ public class ItemBind {
         ((ItemTextCardItemHolder)viewHolder).getTvFooter().setText("");
         ((ItemTextCardItemHolder)viewHolder).getTvTite().setText("");
     }
+
 }
 
