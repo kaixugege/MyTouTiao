@@ -19,9 +19,7 @@ import com.kaixugege.xu_ec.R;
  */
 public class MessageDelegate extends XuLazyFragment {
     public static MessageDelegate newInstance() {
-
         Bundle args = new Bundle();
-
         MessageDelegate fragment = new MessageDelegate();
         fragment.setArguments(args);
         return fragment;
@@ -34,7 +32,7 @@ public class MessageDelegate extends XuLazyFragment {
 
             @Override
             public void onFragmentFirstVisible(View rootView) {
-                Toast.makeText(getActivity(), " 消息 第一次显示出来", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), " 消息 第一次显示出来", Toast.LENGTH_SHORT).show();
             }
 
             @Override
