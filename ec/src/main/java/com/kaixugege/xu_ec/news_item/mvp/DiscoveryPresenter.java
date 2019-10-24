@@ -2,19 +2,14 @@ package com.kaixugege.xu_ec.news_item.mvp;
 
 import android.util.Log;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPObject;
-import com.alibaba.fastjson.TypeReference;
 import com.kaixugege.xu.core.net.Net;
 import com.kaixugege.xu.core.net.RestClient;
-import com.kaixugege.xu.core.net.RestCreator;
 import com.kaixugege.xu_ec.news.mvp.CategoriesContract;
 import com.kaixugege.xu_ec.news_item.entiy.BNews;
-import com.kaixugege.xu_ec.news_item.mvp.DiscoveryContract;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 
 /**
